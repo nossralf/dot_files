@@ -1,0 +1,48 @@
+#
+# Completions for tcsh
+#
+
+# `cd` only completes directories
+complete cd 'p/1/d/'
+
+# Complete `kill` in two ways. Firstly, if the current word starts
+# with '-', complete with names of signals (this gets you completions
+# such as -TERM or -HUP). Secondly, in any position, complete with the
+# PIDs we get from `ps`.
+complete kill 'c/-/S/' 'p/*/`ps | awk NR\>1 \{print \$1\}`/'
+
+#
+# Basic completion for `git`. Make variables for *everything* in the
+# man pages.
+#
+set git_main_porcelain=(add am archive bisect branch bundle checkout \
+    cherry-pick citool clean clone commit  describe diff \
+    fetch format-patch gc grep gui init log merge mv notes pull push \
+    rebase reset revert rm shortlog show stash status submodule tag)
+set git_ancillary_manipulators=(config fast-export fast-import \
+    filter-branch lost-found mergetool pack-refs prune reflog relink \
+    remote repack replace repo-config)
+set git_ancillary_interrogators=(annotate blame cherry count-objects \
+    difftool fsck get-tar-commit-id help instaweb merge-tree rerere \
+    rev-parse show-branch verify-tag whatchanged)
+set git_interaction=(archimport cvsexportcommit cvsimport cvsserver \
+    imap-send quiltimport request-pull send-email svn)
+set git_low_level_manipulation=(apply checkout-index commit-tree \
+    hash-object index-pack merge-file merge-index mktag mktree \
+    pack-objects prune-packed read-tree symbolic-ref unpack-objects \
+    update-index update-ref write-tree)
+set git_low_level_interrogation=(cat-file diff-files diff-index \
+    diff-tree for-each-ref ls-files ls-remote ls-tree merge-base \
+    name-rev pack-redundant rev-list show-index show-ref tar-tree \
+    unpack-file var verify-pack)
+set git_synching_repositories=(daemon fetch-pack http-backend \
+    send-pack update-server-info http-fetch http-push parse-remote \
+    receive-pack shell upload-archive upload-pack)
+set git_internal_helper_commands=(check-attr check-ref-format \
+    fmt-merge-msg mailinfo mailsplit merge-one-file patch-id \
+    peek-remote sh-setup stripspace)
+
+# For now, only use the main porcelain commands for completion.
+set git_completed_commands=($git_main_porcelain)
+
+complete git  'p/1/$git_completed_commands/'
