@@ -1,20 +1,21 @@
+# Completion support for tcsh
 #
-# Completions for tcsh
-#
+# Copyright (c) 2013 Fredrik Larsson.
+# Licensed under the MIT license.
 
-# `cd` only completes directories
+# Only complete directories for cd.
 complete cd 'p/1/d/'
 
-# Complete `kill` in two ways. Firstly, if the current word starts
+# Complete kill in two ways. Firstly, if the current word starts
 # with '-', complete with names of signals (this gets you completions
 # such as -TERM or -HUP). Secondly, in any position, complete with the
-# PIDs we get from `ps`.
+# PIDs we get from ps.
 complete kill 'c/-/S/' 'p/*/`ps | awk NR\>1 \{print \$1\}`/'
 
 #
-# Basic completion for `git`. Make variables for *everything* in the
-# man pages.
+# Basic completion support for git.
 #
+# Make variables for *everything* in the man pages.
 set git_main_porcelain=(add am archive bisect branch bundle checkout \
     cherry-pick citool clean clone commit  describe diff \
     fetch format-patch gc grep gui init log merge mv notes pull push \
@@ -45,4 +46,4 @@ set git_internal_helper_commands=(check-attr check-ref-format \
 # For now, only use the main porcelain commands for completion.
 set git_completed_commands=($git_main_porcelain)
 
-complete git  'p/1/$git_completed_commands/'
+complete git 'p/1/$git_completed_commands/'
