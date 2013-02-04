@@ -10,7 +10,7 @@ complete cd 'p/1/d/'
 # with '-', complete with names of signals (this gets you completions
 # such as -TERM or -HUP). Secondly, in any position, complete with the
 # PIDs we get from ps.
-complete kill 'c/-/S/' 'p/*/`ps | awk NR\>1 \{print \$1\}`/'
+complete kill 'c/-/S/' 'p/*/`ps | awk NR\>1\ \{print\ \$1\}`/'
 
 #
 # Basic completion support for git.
